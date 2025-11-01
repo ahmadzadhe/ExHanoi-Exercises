@@ -76,7 +76,7 @@ hanoi(B, A, C,3*(2*n-1))
 }
  */
 function exHanoi_1(start, aux, end, n) {
-    if (n === 1) {
+    if (n == 1) {
         moves.push([start, aux]);
         hanoi(aux, start, end, 3);
     } else {
@@ -86,7 +86,7 @@ function exHanoi_1(start, aux, end, n) {
         hanoi(end, start, aux,6*(n-1));
         hanoi(aux, start, end,3*(2*n-1));
        }
-}  
+}
 
 function exHanoi_2(A, B, C, D, n) {
   hanoi(A,B,D,n);
@@ -95,7 +95,7 @@ function exHanoi_2(A, B, C, D, n) {
 }
 
 function exhanoi_3(A, B, C, n) {
-if(n === 1 ){
+if(n == 1 ){
     moves.push([A, C]);
     moves.push([B, A]);
     moves.push([B, C]);
@@ -110,7 +110,7 @@ if(n === 1 ){
 
 // before coding read about the extra rules for this ExHanoi
 function exhanoi_4(A, B, C, D, n) {
-   if(n===1){
+   if(n==1){
        moves.push([A,C]);
    }else{
        exhanoi_4(A, B, D, C,n-1);
@@ -119,14 +119,32 @@ function exhanoi_4(A, B, C, D, n) {
        exhanoi_4(A, B, C, D,n-1);
    }
 }
+function ComakBeexhanoi_5(from, aux, to, n) {
+    if (n == 0) return;
+    if (n == 1) {
+        moves.push([from, to]);
+        return;
+    }
+    ComakBeexhanoi_5(  from, to, aux,n - 1);
+    moves.push([from, to]);
+    ComakBeexhanoi_5(  aux, from, to,n - 1,);
+}
 
 // before coding read about the extra rules for this ExHanoi
 function exhanoi_5(A, B, C, D, n) {
-    if(n===1){
-        moves.push([A, C]);
+    if (n == 1) {
+    moves.push([A,D]);
+    ComakBeexhanoi_5(C,D,B,3);
+    moves.push([D,C]);
+    ComakBeexhanoi_5(B,A,C,5);
+    } else {
+        exhanoi_5(A, B, C, D, n-1)
+        moves.push([A,D]);
+        ComakBeexhanoi_5(C,D,B,6 * n - 3);
+        moves.push([D,C]);
+        ComakBeexhanoi_5(B,A,C,6 * n -1);
 
     }
-
 }
 
 function moveDisks(from, to){
@@ -273,7 +291,7 @@ exHanoi1.addEventListener("click", () => {
         location.reload();
         return
     }
-    
+
     diskCreator(6*number, "disk");
 
     let index = 6*number - 1;
@@ -281,18 +299,18 @@ exHanoi1.addEventListener("click", () => {
         rods.A.appendChild(disks[index])
         index--;
         for(let j = 0; j < 2; j++){
-            rods.B.appendChild(disks[index])        
+            rods.B.appendChild(disks[index])
             index--;
         }
         for(let j = 0; j < 3; j++){
-            rods.C.appendChild(disks[index])        
+            rods.C.appendChild(disks[index])
             index--;
         }
     }
     buttonsWorks()
     exHanoi_1('A', 'B', 'C', number);
     console.log(`Number Of Moves : ${moves.length}`);
-    
+
 })
 //.............................ExHanoi Number 2..................................\\
 exHanoi2.addEventListener("click",() => {
